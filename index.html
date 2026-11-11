@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>唐美玥 - 亮麗個人網頁</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ==========================================================================
+           1. 變數與全局設定 (Bright & Vibrant Theme)
+           ========================================================================== */
+        :root {
+            --bg-color: #fcfbfe;
+            --text-main: #2b2d42;
+            --text-muted: #8d99ae;
+            --gradient-1: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            --gradient-2: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+            --gradient-text: linear-gradient(45deg, #f77062 0%, #fe5196 100%);
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 15px 50px rgba(254, 81, 150, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Sans TC', 'Poppins', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* 亮麗動態背景裝飾 */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(70px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: float 12s infinite ease-in-out alternate;
+        }
+        .blob-1 { top: -5%; left: -10%; width: 45vw; height: 45vw; background: var(--gradient-1); }
+        .blob-2 { bottom: -10%; right: -5%; width: 50vw; height: 50vw; background: var(--gradient-2); animation-delay: -6s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, -30px) scale(1.1); }
+        }
+
+        /* ==========================================================================
+           2. 導覽列
+           ========================================================================== */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.2rem 8%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+        }
+        .nav-brand { 
+            font-family: 'Poppins', sans-serif; 
+            font-size: 1.6rem; 
+            font-weight: 800; 
+            background: var(--gradient-text); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { 
+            color: var(--text-main); 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 0.95rem; 
+            transition: color 0.3s; 
+        }
+        .nav-links a:hover { color: #fe5196; }
+
+        /* ==========================================================================
+           3. 主要容器與排版
+           ========================================================================== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 7rem 1.5rem 4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 3.5rem;
+        }
+
+        /* Hero / 自我介紹 */
+        .hero-section {
+            text-align: center;
+            display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+        }
+        .avatar {
+            width: 170px; height: 170px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid white;
+            box-shadow: 0 12px 30px rgba(254, 81, 150, 0.2);
+            margin-bottom: 0.5rem;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .avatar:hover { transform: scale(1.08) rotate(3deg); }
+        
+        .title { 
+            font-size: 3.2rem; 
+            font-weight: 800; 
+            color: var(--text-main); 
+            margin-bottom: 0.2rem; 
+        }
+        .subtitle { 
+            font-size: 1.15rem; 
+            font-weight: 600; 
+            color: #fe5196; 
+            margin-bottom: 1rem; 
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .quote {
+            font-size: 1.2rem; font-weight: 500; color: var(--text-muted);
+            max-width: 650px; margin: 0 auto;
+            background: var(--glass-bg); padding: 1.8rem 2.5rem; border-radius: 24px;
+            box-shadow: var(--shadow-soft); border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            line-height: 1.8;
+        }
+
+        /* 興趣與技能 (精簡化 Glassmorphism Card) */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 3rem;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .glass-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: var(--shadow-hover);
+        }
+        .card-title { 
+            font-size: 1.6rem; font-weight: 700; margin-bottom: 2rem; 
+            display: flex; align-items: center; gap: 12px; justify-content: center;
+        }
+        .card-title i { color: #fe5196; }
+
+        .traits-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;
+        }
+        .trait-item {
+            background: rgba(255,255,255,0.9);
+            padding: 1.8rem 1.5rem; border-radius: 20px;
+            display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: transform 0.3s;
+        }
+        .trait-item:hover { transform: translateY(-5px); }
+        .trait-icon { 
+            font-size: 2.2rem; margin-bottom: 5px; 
+            background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+        }
+        .trait-text h4 { font-size: 1.15rem; color: var(--text-main); font-weight: 700; margin-bottom: 5px;}
+        .trait-text p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* ==========================================================================
+           4. 生活隨影 (Gallery)
+           ========================================================================== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+            box-shadow: var(--shadow-soft);
+            cursor: pointer;
+        }
+        .gallery-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .gallery-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(254, 81, 150, 0.85) 0%, transparent 100%);
+            opacity: 0; transition: opacity 0.4s ease;
+            display: flex; align-items: flex-end; padding: 1.5rem;
+        }
+        .gallery-overlay span {
+            color: white; font-weight: 600; font-size: 1.1rem;
+            transform: translateY(20px); transition: transform 0.4s ease;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-item:hover .gallery-overlay span { transform: translateY(0); }
+
+        /* ==========================================================================
+           5. 聯絡方式與 Footer
+           ========================================================================== */
+        .contact-card { text-align: center; }
+        .contact-links {
+            display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 1.5rem;
+        }
+        .contact-item {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 1.05rem; font-weight: 600; color: var(--text-main); text-decoration: none;
+            padding: 12px 24px; background: rgba(255,255,255,0.9);
+            border-radius: 50px; box-shadow: var(--shadow-soft);
+            transition: all 0.3s;
+        }
+        .contact-item:hover {
+            transform: translateY(-3px); color: white;
+            background: var(--gradient-text);
+            box-shadow: 0 10px 20px rgba(254, 81, 150, 0.3);
+        }
+        .contact-item:hover i { color: white; }
+        .contact-item i { font-size: 1.3rem; color: #fe5196; transition: color 0.3s; }
+
+        footer { text-align: center; padding: 3rem 1rem; color: var(--text-muted); font-size: 0.9rem; }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 600px) {
+            .navbar { padding: 1rem 5%; }
+            .nav-links { gap: 1.2rem; }
+            .title { font-size: 2.6rem; }
+            .glass-card { padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 亮麗背景裝飾 -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <nav class="navbar">
+        <div class="nav-brand">Meiyue.</div>
+        <ul class="nav-links">
+            <li><a href="#hero">首頁</a></li>
+            <li><a href="#about">關於</a></li>
+            <li><a href="#gallery">生活</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <!-- 簡潔自我介紹 -->
+        <section id="hero" class="hero-section reveal">
+            <!-- 請將大頭貼命名為 profile.jpg 放在同一資料夾 -->
+            <img src="profile.jpg" alt="唐美玥" class="avatar" onerror="this.src='https://via.placeholder.com/170/ffe3e3/ff4b2b?text=TM'">
+            <h1 class="title">唐美玥</h1>
+            <h2 class="subtitle"><i class="fas fa-graduation-cap"></i> 黎明技術學院 數媒一甲</h2>
+            <div class="quote">
+                「喜歡簡單生活，也喜歡認真對待每一件事。」
+            </div>
+        </section>
+
+        <!-- 興趣與技能卡片 -->
+        <section id="about" class="glass-card reveal">
+            <h2 class="card-title"><i class="fas fa-sparkles"></i> 興趣與技能</h2>
+            <div class="traits-grid">
+                <div class="trait-item">
+                    <div class="trait-icon"><i class="fas fa-paint-brush"></i></div>
+                    <div class="trait-text">
+                        <h4>畫一幅畫</h4>
+                        <p>透過畫筆表達內心世界，用色彩點綴生活。</p>
+                    </div>
+                </div>
+                <div class="trait-item">
+                    <div class="trait-icon"><i class="fas fa-book-open"></i></div>
+                    <div class="trait-text">
+                        <h4>閱讀</h4>
+                        <p>在文字中尋找平靜，拓展不同的視野與想像。</p>
+                    </div>
+                </div>
+                <div class="trait-item">
+                    <div class="trait-icon"><i class="fas fa-headphones-alt"></i></div>
+                    <div class="trait-text">
+                        <h4>聽音樂</h4>
+                        <p>沉浸在旋律之中，讓音樂成為日常的最佳陪伴。</p>
+                    </div>
+                </div>
+                <div class="trait-item">
+                    <div class="trait-icon"><i class="fas fa-moon"></i></div>
+                    <div class="trait-text">
+                        <h4>睡覺</h4>
+                        <p>好好休息是為了走更長遠的路，享受簡單的放鬆。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 生活隨影 (Gallery) -->
+        <section id="gallery" class="glass-card reveal">
+            <h2 class="card-title"><i class="fas fa-camera"></i> 生活隨影</h2>
+            <p style="color: var(--text-muted); text-align: center; margin-bottom: 1.5rem;">
+                捕捉生活中的小確幸，分享我眼中的美好瞬間：
+            </p>
+            <div class="gallery-grid">
+                <!-- 將 src 替換為您的照片檔名，例如 life1.jpg -->
+                <div class="gallery-item">
+                    <img src="life1.jpg" alt="生活照 1" onerror="this.src='https://via.placeholder.com/400/fff0f5/fe5196?text=Life+1'">
+                    <div class="gallery-overlay"><span>日常點滴</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="life2.jpg" alt="生活照 2" onerror="this.src='https://via.placeholder.com/400/fff0f5/fe5196?text=Life+2'">
+                    <div class="gallery-overlay"><span>藝術創作</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="life3.jpg" alt="生活照 3" onerror="this.src='https://via.placeholder.com/400/fff0f5/fe5196?text=Life+3'">
+                    <div class="gallery-overlay"><span>放鬆時刻</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 聯絡方式 -->
+        <section class="glass-card contact-card reveal">
+            <h2 class="card-title"><i class="fas fa-paper-plane"></i> 聯絡我</h2>
+            <p style="color: var(--text-muted);">期待與您交流，歡迎透過以下方式聯繫：</p>
+            <div class="contact-links">
+                <a href="mailto:bd1151003@venus.lit.edu.tw" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                </a>
+                <a href="#" class="contact-item">
+                    <i class="fab fa-line"></i>
+                    <span>0611822147</span>
+                </a>
+                <a href="https://instagram.com/_yaozx07" target="_blank" class="contact-item">
+                    <i class="fab fa-instagram"></i>
+                    <span>_yaozx07</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Tang Mei-Yue. Vibrant & Minimalist Design.</p>
+    </footer>
+
+    <!-- 簡單的滑動動畫腳本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const revealElements = document.querySelectorAll('.reveal');
+            const handleScroll = () => {
+                const windowHeight = window.innerHeight;
+                revealElements.forEach(el => {
+                    const elementTop = el.getBoundingClientRect().top;
+                    // 當元素進入畫面特定高度時觸發動畫
+                    if (elementTop < windowHeight - 60) {
+                        el.classList.add('active');
+                    }
+                });
+            };
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); // 初始觸發，確保載入時即顯示
+        });
+    </script>
+</body>
+</html>
